@@ -260,7 +260,7 @@ st.divider()
 # ==========================================
 # SEÇÃO 2: A MATEMÁTICA DO INTERCEPTO
 # ==========================================
-st.header("2. O Intercepto Fixo de $-9.1 \text{ cm}^{-1}$")
+st.header("2. O Intercepto Fixo de $-9.1 cm^{-1}$")
 st.markdown("A grande sacada foi subtrair a previsão teórica *sem* o meio quantum da previsão *com* o meio quantum. Ao fazer isso, a dependência nos níveis $v'$ e $v''$ desaparece, e sobra uma constante global (um **intercepto**) igual à diferença das energias de ponto zero dos dois estados eletrônicos.")
 
 st.latex(r"\Delta\tilde{\nu}_{\text{com}} - \Delta\tilde{\nu}_{\text{sem}} = (\rho - 1)\frac{\tilde{\omega}' - \tilde{\omega}''}{2} = -9.1 \text{ cm}^{-1}")
