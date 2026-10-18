@@ -120,6 +120,9 @@ with col_ctrl:
     half_quantum = st.toggle("Ativar energia de ponto zero (+ 1/2)", value=True)
     anarmonicidade = st.toggle("Incluir anarmonicidade (refinamento)", value=False)
 
+    st.markdown("**Relação de massas:**")
+    st.latex(r"\rho = \sqrt{\frac{\mu(^{11}\text{BO})}{\mu(^{10}\text{BO})}}")
+    
     st.info(
         f"**Massa reduzida ($\\mu$):**\n\n"
         f"$^{{11}}$BO: {mu11:.3f} u\n\n"
@@ -373,4 +376,17 @@ st.info(
     "$v'=3$ ou $4$). O alinhamento com a função de onda de $v'=0$ (que está muito à "
     "direita) é pequeno, tornando a banda $(0,0)$ fraca. É assim que a geometria do "
     "potencial dita a intensidade da luz!"
+)
+
+st.divider()
+
+# ==========================================
+# SEÇÃO 7: REFERÊNCIAS
+# ==========================================
+st.header("7. Referências")
+st.markdown(
+    """
+    * MULLIKEN, R. S. **The Isotope Effect in Band Spectra.** *Nature*, v. 113, p. 423–424 (1924).
+    * MULLIKEN, R. S. **The Isotope Effect in Band Spectra. II. The Spectrum of Boron Monoxide.** *Physical Review*, v. 25, n. 3, p. 259–294 (1925).
+    """
 )
