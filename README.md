@@ -73,7 +73,7 @@ LICENSE                                  # MIT
 
 Veja `CITATION.cff` (o GitHub mostra o botão *Cite this repository*). Em texto:
 
-> MARQUES, C. *OHS Quântico: o oscilador harmônico na mecânica matricial de
+> MARQUES, C. et al,*OHS Quântico: o oscilador harmônico na mecânica matricial de
 > Heisenberg — aplicativo interativo*, versão 1.0.0. Zenodo, 2026.
 > DOI: *inserir após a release*.
 
