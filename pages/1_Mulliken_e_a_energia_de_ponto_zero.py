@@ -31,15 +31,14 @@ st.divider()
 # ==========================================
 # PARÂMETROS FÍSICOS (BO)
 # ==========================================
-# Massas atômicas (u) e constantes espectroscópicas do 11BO (cm^-1), sistema alfa
 mB10, mB11, mO = 10.0129, 11.0093, 15.9949
 mu10 = mB10 * mO / (mB10 + mO)
 mu11 = mB11 * mO / (mB11 + mO)
-rho = np.sqrt(mu11 / mu10)     # omega(10BO) = rho * omega(11BO), rho > 1
+rho = np.sqrt(mu11 / mu10)
 
-wl, wxl = 1885.69, 11.81       # estado inferior X 2Sigma+: omega_e'', omega_e x_e''
-wu, wxu = 1260.70, 11.16       # estado superior A 2Pi:     omega_e',  omega_e x_e'
-Te = 23958.7                   # termo eletrônico
+wl, wxl = 1885.69, 11.81
+wu, wxu = 1260.70, 11.16
+Te = 23958.7
 
 
 # ==========================================
@@ -129,7 +128,6 @@ with col_ctrl:
     )
 
 def G(v, w, wx, is_half, is_anarm):
-    """Termo vibracional G(v) em cm^-1."""
     s = v + 0.5 if is_half else v
     term = w * s
     if is_anarm:
@@ -137,7 +135,6 @@ def G(v, w, wx, is_half, is_anarm):
     return term
 
 def nu(vu, vl, r, is_half, is_anarm):
-    """Número de onda da banda (v', v'') para o isótopo de razão r."""
     return Te + G(vu, wu * r, wxu * r * r, is_half, is_anarm) - G(vl, wl * r, wxl * r * r, is_half, is_anarm)
 
 bandas = [(0, 0), (1, 0), (0, 1), (1, 1), (2, 0)]
@@ -204,12 +201,12 @@ st.latex(
 
 dados = []
 for (vu, vl) in bandas:
-    pos_11_com = nu(vu, vl, 1, is_half=True, is_anarm=anarmonicidade)
-    pos_10_com = nu(vu, vl, rho, is_half=True, is_anarm=anarmonicidade)
+    pos_11_com = nu(vu, vl, 1, True, anarmonicidade)
+    pos_10_com = nu(vu, vl, rho, True, anarmonicidade)
     shift_com = pos_10_com - pos_11_com
 
-    pos_11_sem = nu(vu, vl, 1, is_half=False, is_anarm=anarmonicidade)
-    pos_10_sem = nu(vu, vl, rho, is_half=False, is_anarm=anarmonicidade)
+    pos_11_sem = nu(vu, vl, 1, False, anarmonicidade)
+    pos_10_sem = nu(vu, vl, rho, False, anarmonicidade)
     shift_sem = pos_10_sem - pos_11_sem
 
     intercepto = shift_com - shift_sem
@@ -291,4 +288,89 @@ ax2.plot(R, V_X, "b-", lw=2, label=r"Estado inferior ($X\,^2\Sigma^+$)")
 ax2.plot(R, V_A, "r-", lw=2, label=r"Estado superior ($A\,^2\Pi$)")
 
 E_X_0 = 0.5 * np.sqrt(k_X)
-ax2.hlines(E_X_0, -1, 1, color="blue", alpha=0.5, linestyle
+ax2.hlines(E_X_0, -1, 1, color="blue", alpha=0.5, linestyle="--")
+psi_X_0 = np.exp(-((R - R_e_X) ** 2) / np.sqrt(1 / k_X))
+ax2.fill_between(R, E_X_0, E_X_0 + psi_X_0 * 1.5, color="blue", alpha=0.2)
+ax2.text(-1.1, E_X_0, "$v''=0$", color="blue", va="center", ha="right")
+
+w_A = np.sqrt(k_A)
+for v_prime in range(5):
+    E_A_v = T_e_plot + w_A * (v_prime + 0.5)
+    lim = np.sqrt(2 * (E_A_v - T_e_plot) / k_A)
+    ax2.hlines(E_A_v, R_e_A - lim, R_e_A + lim, color="red", alpha=0.5, linestyle="--")
+    ax2.text(R_e_A + lim + 0.1, E_A_v, f"$v'={v_prime}$", color="red", va="center")
+
+y_impacto = T_e_plot + 0.5 * k_A * (R_e_X - R_e_A) ** 2
+ax2.annotate(
+    "",
+    xy=(R_e_X, y_impacto),
+    xytext=(R_e_X, E_X_0),
+    arrowprops=dict(arrowstyle="->", color="black", lw=2),
+)
+
+ax2.set_xlabel("Distância internuclear ($R - R_e''$)", fontsize=12)
+ax2.set_ylabel("Energia eletrônica + vibracional", fontsize=12)
+ax2.set_title("Transição vertical e a sobreposição de estados", fontsize=14)
+ax2.set_ylim(0, 14)
+ax2.set_xlim(-2.5, 7.5)
+ax2.grid(True, linestyle=":", alpha=0.6)
+ax2.legend(loc="lower right")
+
+st.pyplot(fig2)
+
+st.info(
+    "Observe a seta preta partindo do centro do nível $v''=0$ (onde a probabilidade é "
+    "máxima). Por causa do deslocamento horizontal das curvas, a seta cruza a curva "
+    "superior entre $v'=3$ e $v'=4$. É por isso que transições como $(3,0)$ ou $(4,0)$ "
+    "são muito mais intensas do que a transição $(0,0)$ pura."
+)
+
+st.divider()
+
+# ==========================================
+# SEÇÃO 6: CONCLUSÃO (FRANCK-CONDON)
+# ==========================================
+st.header("6. Conclusão: a física por trás do salto vertical")
+st.markdown(
+    """
+A observação de que transições como $(3,0)$ ou $(4,0)$ costumam ser muito mais
+intensas do que a transição $(0,0)$ pura revela a essência do **princípio de
+Franck–Condon**.
+
+Isso ocorre fundamentalmente por uma questão de inércia e velocidade:
+
+* **O salto é instantâneo:** como os elétrons são milhares de vezes mais leves que os
+  núcleos atômicos, a mudança na nuvem eletrônica ocorre em uma fração de
+  femtossegundo. Os núcleos, pesados e lentos, não têm tempo de se mover. No gráfico,
+  isso exige que a transição seja uma seta estritamente **vertical** (a distância
+  internuclear $R$ fica “congelada” durante o salto).
+* **O efeito “mola tensionada”:** quando a molécula passa para o estado excitado, a
+  ligação química geralmente fica mais fraca e comprida (por isso a curva vermelha é
+  deslocada para a direita). Ao dar o salto vertical, a molécula “acorda” no novo
+  estado com os núcleos espremidos fora do seu novo ponto de equilíbrio natural.
+* **A consequência vibracional:** o efeito é análogo a soltar uma mola que estava
+  comprimida. A molécula não cai suavemente no nível de repouso ($v'=0$). Em vez
+  disso, ela é arremessada diretamente para níveis vibracionais muito agitados
+  (como $v'=3$ ou $4$).
+"""
+)
+
+st.subheader("O fator de Franck–Condon")
+st.markdown(
+    "Matematicamente, a intensidade da linha espectral é governada pelo **fator de "
+    "Franck–Condon**, que é o quadrado da integral de sobreposição das funções de onda "
+    "vibracionais de cada estado:"
+)
+
+st.latex(
+    r"\text{Intensidade} \propto |\langle \psi_{v'} | \psi_{v''} \rangle|^2 "
+    r"= \left( \int \psi_{v'}^*(R)\, \psi_{v''}(R)\, dR \right)^2"
+)
+
+st.info(
+    "Visualmente, o “sino” central da função de onda de $v''=0$ se alinha, no eixo "
+    "vertical, com os picos das bordas das funções de onda de níveis mais altos (como "
+    "$v'=3$ ou $4$). O alinhamento com a função de onda de $v'=0$ (que está muito à "
+    "direita) é pequeno, tornando a banda $(0,0)$ fraca. É assim que a geometria do "
+    "potencial dita a intensidade da luz!"
+)
