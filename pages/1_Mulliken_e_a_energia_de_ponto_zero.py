@@ -31,14 +31,15 @@ st.divider()
 # ==========================================
 # PARÂMETROS FÍSICOS (BO)
 # ==========================================
+# Massas atômicas (u) e constantes espectroscópicas do 11BO (cm^-1), sistema alfa
 mB10, mB11, mO = 10.0129, 11.0093, 15.9949
 mu10 = mB10 * mO / (mB10 + mO)
 mu11 = mB11 * mO / (mB11 + mO)
-rho = np.sqrt(mu11 / mu10)
+rho = np.sqrt(mu11 / mu10)     # omega(10BO) = rho * omega(11BO), rho > 1
 
-wl, wxl = 1885.69, 11.81
-wu, wxu = 1260.70, 11.16
-Te = 23958.7
+wl, wxl = 1885.69, 11.81       # estado inferior X 2Sigma+: omega_e'', omega_e x_e''
+wu, wxu = 1260.70, 11.16       # estado superior A 2Pi:     omega_e',  omega_e x_e'
+Te = 23958.7                   # termo eletrônico
 
 
 # ==========================================
@@ -46,58 +47,63 @@ Te = 23958.7
 # ==========================================
 st.header("1. O Fantasma na Máquina: Como pesar a vibração de uma molécula?")
 st.markdown(
-    """
-Antes que a mecânica de matrizes ditasse as regras matemáticas do universo subatômico, 
-a natureza já havia dado seu depoimento num laboratório de química. Mulliken reinterpretou 
-um experimento prévio usando um **espectrógrafo de emissão**. O processo tinha três etapas:
+    r"""
+Antes que a mecânica de matrizes ditasse as regras matemáticas do universo subatômico,
+a natureza já havia dado seu depoimento num laboratório de química. As bandas haviam
+sido fotografadas por W. Jevons em 1915, que as atribuiu ao nitreto de boro (BN).
+Mulliken primeiro reanalisou os dados de Jevons, depois refez o experimento com um
+**espectrógrafo de emissão**. O processo tinha três etapas:
 
 1. **O "Fósforo" Quântico:** Uma forte descarga elétrica em um tubo com gás Nitrogênio rasgava as moléculas, criando um plasma brilhante chamado *Nitrogênio Ativo*.
-2. **A "Lenha":** Esse gás fluía para uma câmara onde se injetava Tricloreto de Boro ($BCl_3$). Impurezas no ambiente reagiam formando **Monóxido de Boro ($BO$)** altamente agitado. Ao se acalmarem, essas moléculas emitiam luz.
+2. **A "Lenha":** Esse gás fluía para uma câmara onde se injetava Tricloreto de Boro ($BCl_3$). Traços de oxigênio no sistema reagiam formando **Monóxido de Boro ($BO$)** altamente agitado. Ao se acalmarem, essas moléculas emitiam luz.
 3. **A Revelação:** A luz atravessava um prisma separando suas frequências e atingia uma chapa fotográfica.
 
-> **O Golpe de Sorte:** O Boro injetado era uma mistura natural de isótopos: o $^{11}BO$ (comum) e o $^{10}BO$ (raro). Ambos emitiam luz simultaneamente. Na chapa, para cada linha forte do isótopo pesado, surgia uma *linha fantasma* do isótopo mais leve. Esse deslocamento foi a chave para revelar o meio quantum de energia.
+> **O Golpe de Sorte:** O Boro injetado era uma mistura natural de isótopos: o $^{11}BO$ (comum) e o $^{10}BO$ (raro). Ambos emitiam luz simultaneamente. Na chapa, para cada linha forte do isótopo pesado, surgia uma *linha fantasma* do isótopo mais leve. Foi a magnitude desse deslocamento que mostrou que o emissor era o BO, e não o BN — e, em seguida, revelou o meio quantum de energia.
     """
 )
 
+
 def desenhar_esquema_mulliken():
     fig, ax = plt.subplots(figsize=(10, 4))
-    ax.axis('off')
+    ax.axis("off")
 
     # 1. Tubo de Nitrogênio
-    ax.add_patch(patches.Rectangle((0.5, 2.5), 2, 1, fill=True, color='#add8e6', ec='black'))
-    ax.text(1.5, 3.0, 'Descarga Elétrica\n(N₂ $\\rightarrow$ N ativo)', ha='center', va='center', fontsize=9)
-    ax.annotate('', xy=(3.0, 3.0), xytext=(2.5, 3.0), arrowprops=dict(arrowstyle='->', lw=2))
+    ax.add_patch(patches.Rectangle((0.5, 2.5), 2, 1, fill=True, color="#add8e6", ec="black"))
+    ax.text(1.5, 3.0, "Descarga Elétrica\n(N₂ $\\rightarrow$ N ativo)", ha="center", va="center", fontsize=9)
+    ax.annotate("", xy=(3.0, 3.0), xytext=(2.5, 3.0), arrowprops=dict(arrowstyle="->", lw=2))
 
-    # 2. Injeção de Boro (CAIXA ALARGADA)
-    ax.add_patch(patches.Rectangle((3.2, 4.0), 1.6, 0.8, fill=True, color='#90ee90', ec='black'))
-    ax.text(4.0, 4.4, 'Vapor de Boro\n(+ traços de O₂)', ha='center', va='center', fontsize=9)
-    ax.annotate('', xy=(4.0, 3.5), xytext=(4.0, 4.0), arrowprops=dict(arrowstyle='->', lw=2))
+    # 2. Injeção de BCl3
+    ax.add_patch(patches.Rectangle((3.2, 4.0), 1.6, 0.8, fill=True, color="#90ee90", ec="black"))
+    ax.text(4.0, 4.4, "BCl₃\n(+ traços de O₂)", ha="center", va="center", fontsize=9)
+    ax.annotate("", xy=(4.0, 3.5), xytext=(4.0, 4.0), arrowprops=dict(arrowstyle="->", lw=2))
 
     # 3. Câmara de Reação
-    ax.add_patch(patches.Circle((4.0, 2.5), 1.0, fill=True, color='#ffd700', ec='orange', alpha=0.6))
-    ax.text(4.0, 2.5, 'Câmara de Reação\nMoléculas de BO\nemitem luz', ha='center', va='center', fontsize=9, fontweight='bold')
-    ax.annotate('', xy=(6.0, 2.5), xytext=(5.0, 2.5), arrowprops=dict(arrowstyle='->', color='#ffd700', lw=3))
+    ax.add_patch(patches.Circle((4.0, 2.5), 1.0, fill=True, color="#ffd700", ec="orange", alpha=0.6))
+    ax.text(4.0, 2.5, "Câmara de Reação\nMoléculas de BO\nemitem luz", ha="center", va="center", fontsize=9, fontweight="bold")
+    ax.annotate("", xy=(6.0, 2.5), xytext=(5.0, 2.5), arrowprops=dict(arrowstyle="->", color="#ffd700", lw=3))
 
-    # 4. Prisma
-    ax.add_patch(patches.Rectangle((6.0, 2.0), 0.2, 1.0, fill=True, color='gray'))
-    ax.add_patch(patches.Polygon([[6.5, 2.0], [7.5, 2.0], [7.0, 3.0]], fill=True, color='#e0e0e0', ec='black'))
-    ax.text(7.0, 1.7, 'Prisma', ha='center', va='center', fontsize=10)
-    
-    # DISPERSÃO ISOTÓPICA (SETAS CORRIGIDAS)
-    ax.annotate('', xy=(8.5, 3.2), xytext=(7.3, 2.5), arrowprops=dict(arrowstyle='->', color='blue', lw=2))
-    ax.annotate('', xy=(8.5, 3.0), xytext=(7.3, 2.5), arrowprops=dict(arrowstyle='->', color='red', lw=2))
+    # 4. Fenda e prisma
+    ax.add_patch(patches.Rectangle((6.0, 2.0), 0.2, 1.0, fill=True, color="gray"))
+    ax.add_patch(patches.Polygon([[6.5, 2.0], [7.5, 2.0], [7.0, 3.0]], fill=True, color="#e0e0e0", ec="black"))
+    ax.text(7.0, 1.7, "Prisma", ha="center", va="center", fontsize=10)
+
+    # Dispersão isotópica
+    ax.annotate("", xy=(8.5, 3.2), xytext=(7.3, 2.5), arrowprops=dict(arrowstyle="->", color="blue", lw=2))
+    ax.annotate("", xy=(8.5, 3.0), xytext=(7.3, 2.5), arrowprops=dict(arrowstyle="->", color="red", lw=2))
 
     # 5. Chapa Fotográfica
-    ax.add_patch(patches.Rectangle((8.5, 1.0), 0.5, 3.0, fill=True, color='#f5f5f5', ec='black'))
-    ax.text(8.75, 4.3, 'Chapa Fotográfica\n(Linhas Isotópicas)', ha='center', va='center', fontsize=9, fontweight='bold')
-    ax.plot([8.5, 9.0], [3.2, 3.2], color='blue', lw=3)
-    ax.text(9.2, 3.2, '¹¹BO (principal)', va='center', fontsize=9, color='blue')
-    ax.plot([8.5, 9.0], [3.0, 3.0], color='red', lw=2)
-    ax.text(9.2, 3.0, '¹⁰BO (fantasma)', va='center', fontsize=9, color='red')
+    ax.add_patch(patches.Rectangle((8.5, 1.0), 0.5, 3.0, fill=True, color="#f5f5f5", ec="black"))
+    ax.text(8.75, 4.3, "Chapa Fotográfica\n(Linhas Isotópicas)", ha="center", va="center", fontsize=9, fontweight="bold")
+    ax.plot([8.5, 9.0], [3.2, 3.2], color="blue", lw=3)
+    ax.text(9.2, 3.2, "¹¹BO (principal)", va="center", fontsize=9, color="blue")
+    ax.plot([8.5, 9.0], [3.0, 3.0], color="red", lw=2)
+    ax.text(9.2, 3.0, "¹⁰BO (fantasma)", va="center", fontsize=9, color="red")
 
     ax.set_xlim(0, 11.5)
     ax.set_ylim(0, 5)
+    ax.set_aspect("equal")   # mantém a câmara circular
     return fig
+
 
 fig_esquema = desenhar_esquema_mulliken()
 st.pyplot(fig_esquema)
@@ -124,7 +130,7 @@ with col_ctrl:
 
     st.markdown("**Relação de massas:**")
     st.latex(r"\rho = \sqrt{\frac{\mu(^{11}\text{BO})}{\mu(^{10}\text{BO})}}")
-    
+
     st.info(
         f"**Massa reduzida ($\\mu$):**\n\n"
         f"$^{{11}}$BO: {mu11:.3f} u\n\n"
@@ -132,15 +138,20 @@ with col_ctrl:
         f"**Razão ($\\rho$):** {rho:.4f}"
     )
 
+
 def G(v, w, wx, is_half, is_anarm):
+    """Termo vibracional G(v) em cm^-1."""
     s = v + 0.5 if is_half else v
     term = w * s
     if is_anarm:
         term -= wx * (s**2)
     return term
 
+
 def nu(vu, vl, r, is_half, is_anarm):
+    """Número de onda da banda (v', v'') para o isótopo de razão r."""
     return Te + G(vu, wu * r, wxu * r * r, is_half, is_anarm) - G(vl, wl * r, wxl * r * r, is_half, is_anarm)
+
 
 bandas = [(0, 0), (1, 0), (0, 1), (1, 1), (2, 0)]
 
@@ -189,9 +200,93 @@ with col_plot:
 st.divider()
 
 # ==========================================
-# SEÇÃO 3: A MATEMÁTICA DO INTERCEPTO
+# SEÇÃO 3: DO HAMILTONIANO AO INTERCEPTO
 # ==========================================
 st.header(r"3. O intercepto fixo de $-9{,}1\ \mathrm{cm^{-1}}$")
+
+st.subheader("De onde vem a fórmula: o hamiltoniano da molécula")
+st.markdown(
+    r"""
+Antes da fórmula do intercepto, vale ver de onde ela sai. Uma molécula diatômica $AB$
+é um sistema de dois núcleos (massas $M_A$, $M_B$) e $n$ elétrons (massa $m_e$).
+O hamiltoniano completo tem três partes:
+"""
+)
+st.latex(
+    r"H = \underbrace{-\frac{\hbar^2}{2M_A}\nabla_A^2 - \frac{\hbar^2}{2M_B}\nabla_B^2}_{T_N\ (\text{núcleos})}"
+    r"\;\underbrace{-\sum_{i=1}^{n}\frac{\hbar^2}{2m_e}\nabla_i^2}_{T_e\ (\text{elétrons})}"
+    r"\;+\;\underbrace{V_{ee} + V_{eN} + V_{NN}}_{\text{Coulomb}}"
+)
+st.markdown(
+    r"""
+**Passo 1 — Born–Oppenheimer.** Como $m_e/M \sim 10^{-4}$, os núcleos são lentos diante
+dos elétrons. Na primeira etapa o termo $T_N$ é **retirado** do problema — os núcleos
+ficam congelados a uma distância $R$ — e resolve-se só a parte eletrônica:
+"""
+)
+st.latex(
+    r"\big[\,T_e + V_{ee} + V_{eN} + V_{NN}\,\big]\,\psi_{\rm el}(\mathbf r;R) "
+    r"= E_{\rm el}(R)\,\psi_{\rm el}(\mathbf r;R)"
+)
+st.markdown(
+    r"""
+O autovalor $E_{\rm el}(R)$ é a **curva de Born–Oppenheimer** (as curvas da Seção 5).
+Repare no que *não* aparece nela: as massas nucleares. $M_A$ e $M_B$ só entravam em
+$T_N$, que foi posto de lado. Logo a curva $E_{\rm el}(R)$, o seu mínimo $T_e$ e a sua
+curvatura são **idênticos** para $^{10}$BO e $^{11}$BO. É por isso que $T_e$ vai sumir do
+deslocamento isotópico.
+
+**Passo 2 — os núcleos voltam.** $T_N$ não é desprezível — é ele que faz a molécula
+vibrar; ele só foi tratado em separado. Separando o centro de massa, o movimento relativo
+dos núcleos obedece a
+"""
+)
+st.latex(
+    r"H_N = -\frac{\hbar^2}{2\mu}\frac{d^2}{dR^2} + E_{\rm el}(R), "
+    r"\qquad \mu = \frac{M_A M_B}{M_A + M_B}"
+)
+st.markdown(
+    r"""
+(a rotação foi omitida: ela produz a estrutura fina de cada banda, não os deslocamentos
+entre bandas de que tratamos aqui). Toda a dependência isotópica está em um único lugar:
+a massa reduzida $\mu$.
+
+**Passo 3 — aproximação harmônica.** Perto do mínimo, expande-se a curva em série de
+Taylor e fica-se com o termo quadrático:
+"""
+)
+st.latex(r"E_{\rm el}(R) \simeq T_e + \tfrac12\,k\,(R-R_e)^2, \qquad k = E_{\rm el}''(R_e)")
+st.markdown(
+    r"""
+e $H_N$ vira exatamente o oscilador harmônico do artigo, com $\omega_e = \sqrt{k/\mu}$.
+A mecânica matricial dá então $E_v = T_e + \hbar\omega_e\,(v+\tfrac12)$ — e é aqui que o
+meio quantum entra (Seção 4). Como $k$ é o mesmo para os dois isótopos, trocar $\mu$ por
+$\mu^i$ só reescala a frequência:
+"""
+)
+st.latex(r"\omega_e^{\,i} = \rho\,\omega_e, \qquad \rho = \sqrt{\mu/\mu^i}")
+st.markdown(
+    r"""
+Os termos cúbico e quártico da expansão dão a correção anarmônica
+$-\omega_e x_e\,(v+\tfrac12)^2$, com $\omega_e x_e \propto 1/\mu$ — por isso ela escala
+com $\rho^2$ (é o que o botão "anarmonicidade" liga).
+
+**Passo 4 — a banda e o deslocamento.** Em números de onda, a banda $(v',v'')$ de emissão
+fica em $\tilde\nu = T_e + G'(v') - G''(v'')$, com $G(v) = \tilde\omega_e\,(v+\tfrac12)$.
+Subtraindo a posição no $^{11}$BO da posição no $^{10}$BO, $T_e$ cancela e sobra
+"""
+)
+st.latex(
+    r"\Delta\tilde\nu = (\rho - 1)\Big[\tilde\omega'\,(v'+\tfrac12) - \tilde\omega''\,(v''+\tfrac12)\Big]"
+)
+st.markdown(
+    r"""
+Sem o meio quantum (teoria de Bohr) seria $(\rho-1)\,[\tilde\omega' v' - \tilde\omega'' v'']$,
+e a banda $(0,0)$ não se deslocaria nada.
+"""
+)
+
+st.subheader("O intercepto")
 st.markdown(
     "A grande sacada de Mulliken foi comparar o deslocamento isotópico previsto "
     "**sem** o meio quantum (Teoria de Bohr) com o deslocamento **com** o meio quantum (o real). "
@@ -229,10 +324,14 @@ df = pd.DataFrame(dados)
 st.table(df)
 
 st.info(
-    "Brinque com os botões na Seção 2. Note que a anarmonicidade altera ligeiramente "
-    "as bandas altas, mas o intercepto permanece cravado próximo de $-9{,}1\\ \\mathrm{cm^{-1}}$. "
+    "Brinque com os botões na Seção 2. No modelo harmônico o intercepto é exatamente o "
+    "mesmo para todas as bandas; com a anarmonicidade ligada ele oscila entre cerca de "
+    "$-8{,}4$ e $-10{,}4\\ \\mathrm{cm^{-1}}$, porque a energia de ponto zero ganha a parcela "
+    "$-\\omega_e x_e/4$ e o termo cruzado $(\\rho^2-1)\\,[\\omega_e x_e'(v'+\\tfrac14) - "
+    "\\omega_e x_e''(v''+\\tfrac14)]$ depende fracamente da banda. "
     "Como a teoria antiga preveria zero de deslocamento para a banda (0,0), esse "
-    "intercepto fixo foi a prova física de que o vácuo quântico vibra."
+    "intercepto fixo foi a prova física de que a molécula vibra mesmo no seu estado "
+    "de menor energia."
 )
 
 st.divider()
@@ -284,6 +383,8 @@ R_e_X = 0.0
 k_X = 1.0
 V_X = 0.5 * k_X * (R - R_e_X) ** 2
 
+# Com R_e_A = 3.2 a transição vertical a partir de R = 0 atinge a curva superior
+# entre v' = 3 e v' = 4, reproduzindo o que o texto descreve.
 R_e_A = 3.2
 k_A = 0.6
 T_e_plot = 8.0
@@ -388,7 +489,10 @@ st.divider()
 st.header("7. Referências")
 st.markdown(
     """
-    * MULLIKEN, R. S. **The Isotope Effect in Band Spectra.** *Nature*, v. 113, p. 423–424 (1924).
-    * MULLIKEN, R. S. **The Isotope Effect in Band Spectra. II. The Spectrum of Boron Monoxide.** *Physical Review*, v. 25, n. 3, p. 259–294 (1925).
+* JEVONS, W. *Proceedings of the Royal Society A*, v. 91, p. 120–134 (1915) — a fotografia original das bandas, então atribuídas ao BN.
+* MULLIKEN, R. S. **Isotope Effects in the Band Spectra of Boron Monoxide and Silicon Nitride.** *Nature*, v. 113, p. 423–424 (1924).
+* MULLIKEN, R. S. **The Band Spectrum of Boron Monoxide.** *Nature*, v. 114, p. 349–350 (1924).
+* MULLIKEN, R. S. **The Isotope Effect in Band Spectra. Part I: Theory.** *Physical Review*, v. 25, p. 119–138 (1925).
+* MULLIKEN, R. S. **The Isotope Effect in Band Spectra. Part II: The Spectrum of Boron Monoxide.** *Physical Review*, v. 25, n. 3, p. 259–294 (1925).
     """
 )
