@@ -79,7 +79,7 @@ def desenhar_esquema_mulliken():
 
     # 3. Câmara de Reação
     ax.add_patch(patches.Circle((4.0, 2.5), 1.0, fill=True, color="#ffd700", ec="orange", alpha=0.6))
-    ax.text(4.0, 2.5, "Câmara de Reação\nMoléculas de BO\nemitem luz", ha="center", va="center", fontsize=9, fontweight="bold")
+    ax.text(4.0, 2.5, "Câmara de Reação\nMoléculas de BO\nemitem luz", ha="center", va="center", fontsize=7, fontweight="bold")
     ax.annotate("", xy=(6.0, 2.5), xytext=(5.0, 2.5), arrowprops=dict(arrowstyle="->", color="#ffd700", lw=3))
 
     # 4. Fenda e prisma
