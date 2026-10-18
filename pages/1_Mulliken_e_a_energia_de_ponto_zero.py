@@ -45,7 +45,7 @@ Te = 23958.7                   # termo eletrônico
 # ==========================================
 # SEÇÃO 1: A MONTAGEM EXPERIMENTAL HISTÓRICA
 # ==========================================
-st.header("1. O Fantasma na Máquina: Como pesar a vibração de uma molécula?")
+st.header("1. Esquemático: Como mede-se a vibração de uma molécula?")
 st.markdown(
     r"""
 Antes que a mecânica de matrizes ditasse as regras matemáticas do universo subatômico,
@@ -57,7 +57,7 @@ Mulliken primeiro reanalisou os dados de Jevons, depois refez o experimento com 
 1. **O "Fósforo" Quântico:** Uma forte descarga elétrica em um tubo com gás Nitrogênio rasgava as moléculas, criando um plasma brilhante chamado *Nitrogênio Ativo*.
 2. **A "Lenha":** Esse gás fluía para uma câmara onde se injetava Tricloreto de Boro ($BCl_3$). Traços de oxigênio no sistema reagiam formando **Monóxido de Boro ($BO$)** altamente agitado. Ao se acalmarem, essas moléculas emitiam luz.
 3. **A Revelação:** A luz atravessava um prisma separando suas frequências e atingia uma chapa fotográfica.
-
+4. **Obs:** Importante observar no que segue que número de onda é a grandeza utilizada na espectroscopia em termo de cm^{-1}
 > **O Golpe de Sorte:** O Boro injetado era uma mistura natural de isótopos: o $^{11}BO$ (comum) e o $^{10}BO$ (raro). Ambos emitiam luz simultaneamente. Na chapa, para cada linha forte do isótopo pesado, surgia uma *linha fantasma* do isótopo mais leve. Foi a magnitude desse deslocamento que mostrou que o emissor era o BO, e não o BN — e, em seguida, revelou o meio quantum de energia.
     """
 )
