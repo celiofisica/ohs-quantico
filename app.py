@@ -1,10 +1,14 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 import math
 import sympy as sp
 import matplotlib.pyplot as plt
 from sympy.physics.quantum import Commutator, Dagger
 from sympy.physics.quantum.boson import BosonOp
+
+# Configuração da página (pode manter apenas uma)
+st.set_page_config(page_title="Oscilador Harmônico Quântico", layout="wide")
 
 # Configuração da página
 st.set_page_config(page_title="Oscilador Harmônico Quântico", layout="centered")
