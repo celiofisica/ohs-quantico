@@ -180,7 +180,7 @@ st.set_page_config(page_title="O Efeito Isotópico de Mulliken (1924)", layout="
 st.title("A Descoberta da Energia de Ponto Zero (1924)")
 st.markdown("""
 Dez meses antes de Heisenberg formular a Mecânica Matricial, R. S. Mulliken analisou a luz emitida pelo monóxido de boro (BO). 
-Ele usou uma "alavanca" fornecida pela própria natureza: os isótopos. A molécula de $^{10}\text{BO}$ tem a mesma nuvem eletrônica e a mesma "mola" da $^{11}\text{BO}$, mas é ligeiramente mais leve. 
+Ele usou uma "alavanca" fornecida pela própria natureza: os isótopos. A molécula de $^{10}BO$ tem a mesma nuvem eletrônica e a mesma "mola" da $^{11}\text{BO}$, mas é ligeiramente mais leve. 
 Isso altera as frequências de vibração. A forma como o espectro se desloca revelou o meio quantum ($\hbar\omega/2$) escondido no estado fundamental.
 """)
 
