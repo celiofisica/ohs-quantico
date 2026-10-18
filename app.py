@@ -286,7 +286,7 @@ for (vu, vl) in bandas:
 df = pd.DataFrame(dados)
 st.table(df)
 
-st.info("Brinque com os botões na Seção 1. Note que a anarmonicidade altera ligeiramente as bandas altas, mas o **intercepto** permanece cravado em $\approx -9.1 \text{ cm}^{-1}$. O teste empírico era à prova de balas.")
+st.info("Brinque com os botões na Seção 1. Note que a anarmonicidade altera ligeiramente as bandas altas, mas o intercepto permanece cravado em $-9.1cm^{-1}$. O teste empírico era à prova de balas.")
 
 st.divider()
 
