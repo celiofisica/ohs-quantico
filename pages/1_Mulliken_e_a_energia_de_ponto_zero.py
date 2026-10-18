@@ -486,13 +486,8 @@ st.divider()
 # ==========================================
 # SEÇÃO 7: REFERÊNCIAS
 # ==========================================
-st.header("7. Referências")
+st.header("7. Referência")
 st.markdown(
     """
-* JEVONS, W. *Proceedings of the Royal Society A*, v. 91, p. 120–134 (1915) — a fotografia original das bandas, então atribuídas ao BN.
-* MULLIKEN, R. S. **Isotope Effects in the Band Spectra of Boron Monoxide and Silicon Nitride.** *Nature*, v. 113, p. 423–424 (1924).
-* MULLIKEN, R. S. **The Band Spectrum of Boron Monoxide.** *Nature*, v. 114, p. 349–350 (1924).
-* MULLIKEN, R. S. **The Isotope Effect in Band Spectra. Part I: Theory.** *Physical Review*, v. 25, p. 119–138 (1925).
-* MULLIKEN, R. S. **The Isotope Effect in Band Spectra. Part II: The Spectrum of Boron Monoxide.** *Physical Review*, v. 25, n. 3, p. 259–294 (1925).
-    """
+* MULLIKEN R. S. **Isotope Effects in the Band Spectra of Boron Monoxide and Silicon Nitride.** *Nature*, v. 113, p. 423–424 (1924).    """
 )
