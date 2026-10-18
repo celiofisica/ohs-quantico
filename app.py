@@ -153,9 +153,16 @@ st.info("Assim como no comutador, a álgebra matricial quebra a regra da Física
 st.divider()
 
 # ==========================================
-# SEÇÃO 3: SYMPY
+# SEÇÃO 3: SYMPY (ÁLGEBRA SIMBÓLICA)
 # ==========================================
 st.header("3. Abordagem Analítica (SymPy)")
+
+st.markdown("""
+**O que é o SymPy?**  
+Para um computador tradicional, resolver matemática quase sempre significa fazer contas com matrizes e números aproximados (como fizemos acima com o NumPy). 
+
+O **SymPy** (de *Symbolic Python*) muda essa lógica: ele é uma biblioteca que ensina o computador a fazer álgebra "de verdade", exatamente como fazemos com lápis e papel. Em vez de usar matrizes finitas, ele manipula os símbolos matemáticos puros ($x, p, a, a^\dagger$) e suas regras lógicas assumindo um espaço infinito.
+""")
 
 a = BosonOp('a')
 X_sym = (a + Dagger(a)) / sp.sqrt(2)
@@ -165,4 +172,4 @@ comutador_XP = Commutator(X_sym, P_sym)
 resultado = comutador_XP.doit().expand()
 
 st.latex(r"[X, P] = " + sp.latex(resultado))
-st.success("O SymPy avalia a álgebra quântica num espaço infinito. O resultado é a constante imaginária exata, livre de quebras na fronteira.")
+st.success("Perceba a mágica: como o SymPy entende a regra algébrica no infinito, o resultado é a constante imaginária exata, livre das quebras na fronteira que vimos na matriz numérica!")
