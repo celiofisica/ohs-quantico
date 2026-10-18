@@ -68,8 +68,8 @@ def desenhar_esquema_mulliken():
     ax.text(1.5, 3.0, 'Descarga Elétrica\n(N₂ $\\rightarrow$ N ativo)', ha='center', va='center', fontsize=9)
     ax.annotate('', xy=(3.0, 3.0), xytext=(2.5, 3.0), arrowprops=dict(arrowstyle='->', lw=2))
 
-    # 2. Injeção de Boro
-    ax.add_patch(patches.Rectangle((3.5, 4.0), 1, 0.8, fill=True, color='#90ee90', ec='black'))
+    # 2. Injeção de Boro (CAIXA ALARGADA)
+    ax.add_patch(patches.Rectangle((3.2, 4.0), 1.6, 0.8, fill=True, color='#90ee90', ec='black'))
     ax.text(4.0, 4.4, 'Vapor de Boro\n(+ traços de O₂)', ha='center', va='center', fontsize=9)
     ax.annotate('', xy=(4.0, 3.5), xytext=(4.0, 4.0), arrowprops=dict(arrowstyle='->', lw=2))
 
@@ -82,8 +82,10 @@ def desenhar_esquema_mulliken():
     ax.add_patch(patches.Rectangle((6.0, 2.0), 0.2, 1.0, fill=True, color='gray'))
     ax.add_patch(patches.Polygon([[6.5, 2.0], [7.5, 2.0], [7.0, 3.0]], fill=True, color='#e0e0e0', ec='black'))
     ax.text(7.0, 1.7, 'Prisma', ha='center', va='center', fontsize=10)
+    
+    # DISPERSÃO ISOTÓPICA (SETAS CORRIGIDAS)
     ax.annotate('', xy=(8.5, 3.2), xytext=(7.3, 2.5), arrowprops=dict(arrowstyle='->', color='blue', lw=2))
-    ax.annotate('', xy=(8.5, 1.8), xytext=(7.3, 2.5), arrowprops=dict(arrowstyle='->', color='red', lw=2))
+    ax.annotate('', xy=(8.5, 3.0), xytext=(7.3, 2.5), arrowprops=dict(arrowstyle='->', color='red', lw=2))
 
     # 5. Chapa Fotográfica
     ax.add_patch(patches.Rectangle((8.5, 1.0), 0.5, 3.0, fill=True, color='#f5f5f5', ec='black'))
