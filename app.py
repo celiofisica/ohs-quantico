@@ -358,7 +358,28 @@ ax2.set_ylim(0, 14)
 ax2.set_xlim(-2, 3)
 ax2.grid(True, linestyle=':', alpha=0.6)
 ax2.legend(loc='lower right')
+st.divider()
 
+# ==========================================
+# SEÇÃO 5: CONCLUSÃO (FRANCK-CONDON)
+# ==========================================
+st.header("5. Conclusão: A Física por trás do Salto Vertical")
+st.markdown("""
+A observação de que transições como $(3,0)$ ou $(4,0)$ costumam ser muito mais intensas do que a transição $(0,0)$ pura revela a essência do **Princípio de Franck-Condon**. 
+
+Isso ocorre fundamentalmente por uma questão de inércia e velocidade:
+
+* **O Salto é Instantâneo:** Como os elétrons são milhares de vezes mais leves que os núcleos atômicos, a mudança na nuvem eletrônica ocorre em uma fração de femtosegundo. Os núcleos, pesados e lentos, não têm tempo de se mover. No gráfico, isso exige que a transição seja uma seta estritamente **vertical** (a distância internuclear $R$ fica "congelada" durante o salto).
+* **O Efeito "Mola Tensionada":** Quando a molécula passa para o estado excitado, a ligação química geralmente fica mais fraca e comprida (por isso a curva vermelha é deslocada para a direita). Ao dar o salto vertical, a molécula "acorda" no novo estado com os núcleos espremidos fora do seu novo ponto de equilíbrio natural.
+* **A Consequência Vibracional:** O efeito é análogo a soltar uma mola que estava comprimida. A molécula não cai suavemente no nível de repouso ($v'=0$). Em vez disso, ela é arremessada diretamente para níveis vibracionais muito agitados (como $v'=3$ ou $4$).
+""")
+
+st.subheader("O Fator de Franck-Condon")
+st.markdown("Matematicamente, a intensidade da linha espectral é governada pelo **Fator de Franck-Condon**, que é o quadrado da integral de sobreposição das funções de onda vibracionais de cada estado:")
+
+st.latex(r"\text{Intensidade} \propto |\langle \psi_{v'} | \psi_{v''} \rangle|^2 = \left( \int \psi_{v'}^*(R) \psi_{v''}(R) \, dR \right)^2")
+
+st.info("Visualmente, o 'sino' central da função de onda de $v''=0$ se alinha perfeitamente, no eixo vertical, com os picos das bordas das funções de onda de níveis mais altos (como $v'=3$ ou $4$). O alinhamento com a função de onda de $v'=0$ (que está muito à direita) é pequeno, tornando a banda $(0,0)$ fraca. É assim que a geometria do potencial dita a intensidade da luz!")
 st.pyplot(fig2)
 
 st.info("Observe a seta preta partindo do centro do nível $v''=0$ (onde a probabilidade é máxima). Por causa do deslocamento horizontal das curvas, a seta cruza a curva superior atingindo os níveis altos (perto de $v'=3$ e $4$). É por isso que transições como $(3,0)$ ou $(4,0)$ são frequentemente muito mais intensas do que a transição $(0,0)$ pura!")
