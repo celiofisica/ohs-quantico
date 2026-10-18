@@ -131,10 +131,10 @@ st.divider()
 # ==========================================
 st.header(r"2. O intercepto fixo de $-9{,}1\ \mathrm{cm^{-1}}$")
 st.markdown(
-    "A grande sacada foi subtrair a previsão teórica *sem* o meio quantum da previsão "
-    "*com* o meio quantum. Ao fazer isso, a dependência nos níveis $v'$ e $v''$ "
-    "desaparece, e sobra uma constante global (um **intercepto**) igual à diferença "
-    "das energias de ponto zero dos dois estados eletrônicos."
+    "A grande sacada de Mulliken foi comparar o deslocamento isotópico previsto "
+    "**sem** o meio quantum com o deslocamento **com** o meio quantum (que é o real). "
+    "Note na tabela abaixo como a diferença entre os dois modelos anula a dependência "
+    "dos níveis de energia e sobra apenas uma constante global (o **intercepto**)."
 )
 
 st.latex(
@@ -144,23 +144,25 @@ st.latex(
 
 dados = []
 for (vu, vl) in bandas:
-    pos_11 = nu(vu, vl, 1, half_quantum, anarmonicidade)
-    pos_10 = nu(vu, vl, rho, half_quantum, anarmonicidade)
-    shift_atual = pos_10 - pos_11
+    # 1. Deslocamento real/com meio quantum (o que o aluno veria no laboratório)
+    pos_11_com = nu(vu, vl, 1, is_half=True, is_anarm=anarmonicidade)
+    pos_10_com = nu(vu, vl, rho, is_half=True, is_anarm=anarmonicidade)
+    shift_com = pos_10_com - pos_11_com
 
-    shift_oposto = (
-        nu(vu, vl, rho, not half_quantum, anarmonicidade)
-        - nu(vu, vl, 1, not half_quantum, anarmonicidade)
-    )
+    # 2. Deslocamento falso/sem meio quantum (a teoria antiga de Bohr)
+    pos_11_sem = nu(vu, vl, 1, is_half=False, is_anarm=anarmonicidade)
+    pos_10_sem = nu(vu, vl, rho, is_half=False, is_anarm=anarmonicidade)
+    shift_sem = pos_10_sem - pos_11_sem
 
-    diferenca = shift_atual - shift_oposto if half_quantum else shift_oposto - shift_atual
+    # 3. A diferença (O Intercepto de Mulliken)
+    intercepto = shift_com - shift_sem
 
     dados.append(
         {
             "Banda (v', v'')": f"({vu}, {vl})",
-            "Posição 11BO (cm⁻¹)": round(pos_11, 1),
-            "Deslocamento atual Δ (cm⁻¹)": round(shift_atual, 1),
-            "Diferença entre modelos (cm⁻¹)": round(diferenca, 1),
+            "Deslocamento SEM 1/2 quantum (cm⁻¹)": round(shift_sem, 1),
+            "Deslocamento COM 1/2 quantum (cm⁻¹)": round(shift_com, 1),
+            "A Diferença (Intercepto em cm⁻¹)": round(intercepto, 1),
         }
     )
 
@@ -169,11 +171,10 @@ st.table(df)
 
 st.info(
     "Brinque com os botões na Seção 1. Note que a anarmonicidade altera ligeiramente "
-    "as bandas altas, mas o intercepto permanece cravado em $-9{,}1\\ \\mathrm{cm^{-1}}$. "
-    "O teste empírico era à prova de balas."
+    "as bandas altas, mas o intercepto permanece cravado próximo de $-9{,}1\\ \\mathrm{cm^{-1}}$. "
+    "Como a teoria antiga preveria zero de deslocamento para a banda (0,0), esse "
+    "intercepto fixo foi a prova de balas de que o vácuo quântico vibra."
 )
-
-st.divider()
 
 # ==========================================
 # SEÇÃO 3: CONEXÃO COM A MECÂNICA MATRICIAL
