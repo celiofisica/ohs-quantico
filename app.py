@@ -123,7 +123,7 @@ def gerar_latex_matriz_traco(matriz, max_show=8):
 st.latex(r"C = [X, P] = " + gerar_latex_matriz_traco(C))
 st.latex(r"\text{Tr}(C) = \sum_{k=1}^{N} C_{kk} = \color{red}{i + i + \dots " + f" {-(N-1)}i" + r"} = 0")
 
-st.info("O último nível sofre um colapso drástico para forçar a soma da diagonal a ser zero.")
+st.info("O último nível sofre um colapso drástico para forçar a soma da diagonal a ser zero. O comutador so se realiza de fato como "i"se as matrizes forem de dimensão infinita")
 
 # === TRK COM NOTAÇÃO INDICIAL ===
 st.subheader("2. Regra de Soma TRK (Thomas-Reiche-Kuhn)")
