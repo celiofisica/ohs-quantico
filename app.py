@@ -117,13 +117,7 @@ st.latex(
 )
 
 st.info(
-    "**O paradoxo do traço.** Para matrizes finitas, $\\operatorname{Tr}(XP - PX) = 0$ "
-    "sempre, enquanto $\\operatorname{Tr}(i\\,\\mathbb{1}) = iN \\neq 0$. "
-    "Logo $[X,P] = i\\,\\mathbb{1}$ é **impossível** em dimensão finita. "
-    "O que acontece aqui: o último nível, $n = N-1$, perdeu o parceiro $n = N$ "
-    "que lhe daria a contribuição $+N/2$, e seu elemento diagonal despenca "
-    f"para $-({N-1})\\,i$, exatamente o necessário para anular o traço. "
-    "Só uma matriz infinita escapa disso."
+    "O paradoxo do traço. Para matrizes finitas, $\text{Tr}(XP - PX) = 0$ sempre, enquanto $\text{Tr}(i \mathbb{I}) = iN \neq 0$. Logo, $[X, P] = i \mathbb{I}$ é impossível em dimensão finita. O que acontece aqui fisicamente: o último nível, $n = N-1$, perdeu o parceiro superior ($n=N$) que lhe daria a contribuição $+iN$ no comutador. Sem essa parcela, seu elemento diagonal despenca para $-(N-1)i$, que é exatamente o saldo negativo necessário para anular o traço de toda a matriz. Só uma matriz de dimensão infinita escapa disso."
 )
 
 # --- TRK com notação indicial ---
