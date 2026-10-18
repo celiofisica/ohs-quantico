@@ -12,6 +12,11 @@ st.set_page_config(page_title="Oscilador Harmônico Quântico", layout="centered
 st.title("Oscilador Harmônico Quântico")
 st.markdown("Comparação entre Mecânica Matricial Truncada, Álgebra Exata e Visualização Física.")
 
+# Aviso didático sobre unidades
+st.info("**Nota sobre unidades:** Por convenção e para simplificar a notação matemática, em todo este código estamos adotando o sistema de *unidades naturais*. Isso significa que a constante de Planck reduzida, a massa da partícula e a frequência do oscilador são tomadas como iguais a 1 ($\hbar = m = \omega = 1$).")
+
+st.divider()
+
 # ==========================================
 # SEÇÃO 1: VISUALIZAÇÃO GRÁFICA 
 # ==========================================
@@ -29,10 +34,8 @@ ax.plot(x, V, 'k-', lw=2, label="Potencial $V(x) = \\frac{1}{2}x^2$")
 
 # Função para calcular a função de onda do oscilador harmônico (adimensional)
 def psi_n(n, x_vals):
-    # Coeficientes do polinômio de Hermite H_n: [0, 0, ..., 1]
     coeffs = [0] * n + [1]
     H_n = np.polynomial.hermite.hermval(x_vals, coeffs)
-    # Fator de normalização
     norm = 1.0 / np.sqrt((2**n) * math.factorial(n) * np.sqrt(np.pi))
     return norm * np.exp(-x_vals**2 / 2) * H_n
 
@@ -40,22 +43,16 @@ for n_val in range(N_plot):
     E_val = n_val + 0.5
     x_turn = np.sqrt(2 * E_val)
     
-    # Linha base do nível de energia (mais clara agora)
     ax.hlines(E_val, -x_turn, x_turn, color='gray', lw=1, linestyle='--')
     ax.text(x_turn + 0.2, E_val, f"$E_{n_val}$", va='center', color='blue', fontweight='bold')
     
-    # Calculando a densidade de probabilidade |psi|^2
     prob_density = np.abs(psi_n(n_val, x))**2
-    
-    # Escalando a curva de probabilidade para caber visualmente entre os níveis (altura máx ~0.8)
     scale = 0.8 / np.max(prob_density) 
     curva = E_val + prob_density * scale
     
-    # Desenhando a curva de probabilidade
     ax.plot(x, curva, color='blue', lw=1.5)
     ax.fill_between(x, E_val, curva, color='blue', alpha=0.2)
     
-    # Setas de transição na borda esquerda para não poluir o centro
     if n_val < N_plot - 1:
         E_next = n_val + 1.5
         x_arrow = - (0.5 + n_val * 0.3)
@@ -123,7 +120,7 @@ def gerar_latex_matriz_traco(matriz, max_show=8):
 st.latex(r"C = [X, P] = " + gerar_latex_matriz_traco(C))
 st.latex(r"\text{Tr}(C) = \sum_{k=1}^{N} C_{kk} = \color{red}{i + i + \dots " + f" {-(N-1)}i" + r"} = 0")
 
-st.info("O último nível sofre um colapso drástico para forçar a soma da diagonal a ser zero. O comutador so se realiza de fato em dimensão infinita")
+st.info("O último nível sofre um colapso drástico para forçar a soma da diagonal a ser zero.")
 
 # === TRK COM NOTAÇÃO INDICIAL ===
 st.subheader("2. Regra de Soma TRK (Thomas-Reiche-Kuhn)")
@@ -159,9 +156,7 @@ st.header("3. Abordagem Analítica (SymPy)")
 
 st.markdown("""
 **O que é o SymPy?**  
-Para um computador tradicional, resolver matemática quase sempre significa fazer contas com matrizes e números aproximados (como fizemos acima com o NumPy). 
-
-O **SymPy** (de *Symbolic Python*) muda essa lógica: ele é uma biblioteca que ensina o computador a fazer álgebra "de verdade", exatamente como fazemos com lápis e papel. Em vez de usar matrizes finitas, ele manipula os símbolos matemáticos puros ($x, p, a, a^\dagger$) e suas regras lógicas assumindo um espaço infinito.
+Para um computador tradicional, resolver matemática quase sempre significa fazer contas com matrizes numéricas e aproximações. O **SymPy** (de *Symbolic Python*) muda essa lógica: ele ensina o computador a manipular a álgebra simbólica pura (usando letras como $x, p, a, a^\dagger$) exatamente como fazemos no papel, assumindo um espaço de dimensão infinita.
 """)
 
 a = BosonOp('a')
@@ -171,5 +166,7 @@ P_sym = sp.I * (Dagger(a) - a) / sp.sqrt(2)
 comutador_XP = Commutator(X_sym, P_sym)
 resultado = comutador_XP.doit().expand()
 
-st.latex(r"[X, P] = " + sp.latex(resultado))
-st.success("Perceba a mágica: como o SymPy entende a regra algébrica no infinito, o resultado é a constante imaginária exata, livre das quebras na fronteira que vimos na matriz numérica!")
+# Exibindo o resultado final explícito conectando com a Física:
+st.latex(r"[X, P] = " + sp.latex(resultado) + r" \equiv i\hbar \quad (\text{pois } \hbar = 1)")
+
+st.success("Perceba a mágica: como o SymPy entende a regra algébrica no infinito, chegamos ao resultado exato da mecânica quântica teórica ($i\hbar$), perfeitamente livre das anomalias na fronteira vistas nas matrizes finitas!")
