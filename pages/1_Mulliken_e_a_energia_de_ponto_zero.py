@@ -58,7 +58,7 @@ Mulliken primeiro reanalisou os dados de Jevons, depois refez o experimento com 
 2. **A "Lenha":** Esse gás fluía para uma câmara onde se injetava Tricloreto de Boro ($BCl_3$). Traços de oxigênio no sistema reagiam formando **Monóxido de Boro ($BO$)** altamente agitado. Ao se acalmarem, essas moléculas emitiam luz.
 3. **A Revelação:** A luz atravessava um prisma separando suas frequências e atingia uma chapa fotográfica.
 4. **Obs:** Importante observar no que segue que número de onda é a grandeza utilizada na espectroscopia em termo de $cm^{-1}$: $$1eV = 8065,54 cm^{-1}$$.
-> **O Golpe de Sorte:** O Boro injetado era uma mistura natural de isótopos: o $^{11}BO$ (comum) e o $^{10}BO$ (raro). Ambos emitiam luz simultaneamente. Na chapa, para cada linha forte do isótopo pesado, surgia uma *linha fantasma* do isótopo mais leve. Foi a magnitude desse deslocamento que mostrou que o emissor era o BO, e não o BN — e, em seguida, revelou o meio quantum de energia.
+> **O resultado da Pesquisa:** O Boro injetado era uma mistura natural de isótopos: o $^{11}BO$ (comum) e o $^{10}BO$ (raro). Ambos emitiam luz simultaneamente. Na chapa, para cada linha forte do isótopo pesado, surgia uma *linha fantasma* do isótopo mais leve. Foi a magnitude desse deslocamento que mostrou que o emissor era o BO, e não o BN — e, em seguida, revelou o meio quantum de energia.
     """
 )
 
