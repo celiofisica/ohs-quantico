@@ -17,8 +17,14 @@ authors:
     given-names: Célio
     affiliation: "Instituto Federal do Espírito Santo (Ifes), Campus Vitória"
     # orcid: "https://orcid.org/0000-0000-0000-0000"   # preencher
+  - family-names: Dias
+    given-names: Gilmar S.
+    affiliation: "GFTA/IFES, Instituto Federal do Espírito Santo"
+  - family-names: Chavez
+    given-names: Helder S.
+    affiliation: "GFTA/IFES, Instituto Federal do Espírito Santo; Universidad Nacional de Trujillo, Peru"
 version: 1.0.0
-date-released: "2026-10-18"
+date-released: "2026-11-17"
 license: MIT
 repository-code: "https://github.com/celiofisica/ohs-quantico"
 url: "https://ohs-quantico-bwvgessytkhp5ywweadv6x.streamlit.app/"
